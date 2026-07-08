@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Team Dashboard - IT Ticketing System{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="page-header">
+        <h1 class="page-title">Team Status Dashboard</h1>
+        <div class="refresh-indicator">
+            <span class="refresh-dot" id="refresh-dot"></span>
+            <span class="refresh-text" id="last-updated">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-grid" id="stats-grid">
+        <div class="stat-card stat-total">
+            <div class="stat-icon stat-icon-total">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                </svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value" id="stat-total">-</span>
+                <span class="stat-label">Total Tickets</span>
+            </div>
+        </div>
+
+        <div class="stat-card stat-open">
+            <div class="stat-icon stat-icon-open">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value" id="stat-open">-</span>
+                <span class="stat-label">Open (Pending)</span>
+            </div>
+        </div>
+
+        <div class="stat-card stat-in-progress">
+            <div class="stat-icon stat-icon-in-progress">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm0 16a1 1 0 111-1 1 1 0 01-1 1zm1-5h-2V7h2z"></path>
+                </svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value" id="stat-in-progress">-</span>
+                <span class="stat-label">In Progress</span>
+            </div>
+        </div>
+
+        <div class="stat-card stat-resolved">
+            <div class="stat-icon stat-icon-resolved">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value" id="stat-resolved">-</span>
+                <span class="stat-label">Resolved</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Staff Grid -->
+    <div class="staff-section">
+        <h2 class="section-title">Team Availability</h2>
+        <div class="staff-grid" id="staff-grid">
+            <div class="loading-placeholder">
+                <div class="spinner"></div>
+                <p>Loading team data...</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

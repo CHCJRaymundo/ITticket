@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}IT Ticketing System{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo-icon">&#127915;</span>
+            <span class="logo-text">IT Support</span>
+        </div>
+        <div class="nav-links">
+            <a href="/" class="nav-link" data-page="index">Submit Ticket</a>
+            <a href="/dashboard" class="nav-link" data-page="dashboard">Team Dashboard</a>
+            <a href="/admin" class="nav-link admin-link" data-page="admin">Admin Panel</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>Internal IT Ticketing System &mdash; Local Deployment</p>
+    </footer>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

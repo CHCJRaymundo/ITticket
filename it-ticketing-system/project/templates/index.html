@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Submit Ticket - IT Ticketing System{% endblock %}
+
+{% block content %}
+<div class="page-container two-column-layout">
+    <!-- Left Column: Submit Ticket Form -->
+    <div class="column-left">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Submit New Ticket</h2>
+            </div>
+            <form id="ticket-form" class="ticket-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="requester_name" class="form-label">Your Name *</label>
+                    <input type="text" id="requester_name" name="requester_name" class="form-input" required placeholder="John Doe">
+                </div>
+
+                <div class="form-group">
+                    <label for="requester_email" class="form-label">Your Email *</label>
+                    <input type="email" id="requester_email" name="requester_email" class="form-input" required placeholder="john@company.local">
+                </div>
+
+                <div class="form-group">
+                    <label for="title" class="form-label">Ticket Title *</label>
+                    <input type="text" id="title" name="title" class="form-input" required maxlength="100" placeholder="Brief description of the issue">
+                </div>
+
+                <div class="form-group">
+                    <label for="category" class="form-label">Category</label>
+                    <select id="category" name="category" class="form-select">
+                        <option value="Hardware">Hardware</option>
+                        <option value="Software">Software</option>
+                        <option value="Network">Network</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Priority</label>
+                    <div class="priority-options">
+                        <label class="priority-card priority-low">
+                            <input type="radio" name="priority" value="Low" checked>
+                            <span class="priority-label">Low</span>
+                        </label>
+                        <label class="priority-card priority-medium">
+                            <input type="radio" name="priority" value="Medium">
+                            <span class="priority-label">Medium</span>
+                        </label>
+                        <label class="priority-card priority-high">
+                            <input type="radio" name="priority" value="High">
+                            <span class="priority-label">High</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" class="form-label">Description *</label>
+                    <textarea id="description" name="description" class="form-textarea" rows="5" required placeholder="Please describe your issue in detail..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Attachments</label>
+                    <div class="file-upload-zone" id="file-upload-zone">
+                        <div class="file-upload-content">
+                            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <p class="upload-text">Drag & drop files here</p>
+                            <p class="upload-hint">or click to browse (max 5 files, 16MB each)</p>
+                            <input type="file" id="attachments" name="attachments" class="file-input" multiple 
+                                accept="image/*,.pdf,.txt,.log,.zip">
+                        </div>
+                        <div class="file-list" id="file-list"></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full" id="submit-btn">
+                    <span class="btn-text">Submit Ticket</span>
+                    <span class="btn-spinner hidden"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Right Column: My Tickets -->
+    <div class="column-right">
+        <div class="tickets-header">
+            <h2 class="page-title">My Tickets</h2>
+            <div class="tickets-filter" id="tickets-filter">
+                <input type="email" id="filter-email" class="form-input" 
+                    placeholder="Enter your email to view your tickets" 
+                    value="{{ request.args.get('email', '') }}">
+                <button type="button" class="btn btn-primary" id="load-tickets-btn" onclick="loadMyTickets()">
+                    Load My Tickets
+                </button>
+            </div>
+        </div>
+
+        <div id="tickets-container">
+            <div class="empty-state" id="empty-state">
+                <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M9 12h.01M15 12h.01M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"></path>
+                </svg>
+                <p class="empty-title">No tickets to show</p>
+                <p class="empty-hint">Enter your email above to view your submitted tickets.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    window.APP_DATA = {
+        isAdmin: {{ 'true' if admin else 'false' }}
+    };
+</script>
+{% endblock %}

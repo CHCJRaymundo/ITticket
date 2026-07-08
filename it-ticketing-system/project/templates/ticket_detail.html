@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Ticket #{{ ticket_id }} - IT Ticketing System{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <a href="/admin" class="breadcrumb-link">All Tickets</a>
+        <span class="breadcrumb-separator">&gt;</span>
+        <span class="breadcrumb-current">Ticket #{{ ticket_id }}</span>
+    </nav>
+
+    <div class="two-column-layout detail-layout">
+        <!-- Left Column: Ticket Information -->
+        <div class="column-left-detail">
+            <div class="card" id="ticket-info-card">
+                <div class="ticket-header-skeleton">
+                    <div class="skeleton skeleton-title"></div>
+                    <div class="skeleton skeleton-meta"></div>
+                </div>
+            </div>
+
+            <div class="card" id="ticket-description-card">
+                <h3 class="card-subtitle">Description</h3>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+            </div>
+
+            <div class="card hidden" id="ticket-attachments-card">
+                <h3 class="card-subtitle">Attachments</h3>
+                <ul class="attachment-list" id="attachment-list"></ul>
+            </div>
+        </div>
+
+        <!-- Right Column: Actions Panel -->
+        <div class="column-right-detail">
+            <div class="card actions-panel">
+                <h3 class="card-subtitle">Actions</h3>
+
+                <div class="form-group">
+                    <label for="status-select" class="form-label">Status</label>
+                    <select id="status-select" class="form-select">
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Resolved">Resolved</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="assign-select" class="form-label">Assigned To</label>
+                    <select id="assign-select" class="form-select">
+                        <option value="">Unassigned</option>
+                    </select>
+                </div>
+
+                <button type="button" class="btn btn-primary btn-full" id="update-ticket-btn" onclick="updateTicket()">
+                    <span class="btn-text">Update Ticket</span>
+                    <span class="btn-spinner hidden"></span>
+                </button>
+            </div>
+
+            <div class="card info-panel">
+                <h3 class="card-subtitle">Ticket Info</h3>
+                <div class="info-row">
+                    <span class="info-label">Created</span>
+                    <span class="info-value" id="info-created">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Last Updated</span>
+                    <span class="info-value" id="info-updated">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Age</span>
+                    <span class="info-value" id="info-age">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    window.APP_DATA = {
+        ticketId: {{ ticket_id }}
+    };
+</script>
+{% endblock %}
